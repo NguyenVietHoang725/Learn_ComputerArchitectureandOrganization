@@ -131,3 +131,56 @@ Sơ đồ cấu trúc cơ bản của CPU trong hình minh họa các thành ph�
 - Nhận dữ liệu (Fetch Data): Nhận dữ liệu từ bộ nhớ hoặc các cổng vào-ra.
 - Xử lý dữ liệu (Process Data): Thực hiện phép toán số học hay phép toán logic với các dữ liệu.
 - Ghi dữ liệu (Write Data): Ghi dữ liệu ra bộ nhớ hay cổng vào-ra.
+
+### 4.2. ALU - Arithmetic and Logic Unit
+
+#### 4.2.1. Chức năng
+
+Thực hiện các phép toán số học và phép toán logic:
+
+- Số học: Cộng, trừ, nhân, chia, tăng, giảm, đảo dấu.
+- Logic: AND, OR, XOR, NOT, phép dịch bit.
+
+#### 4.2.2. Mô hình kết nối ALU
+
+![Hình 3.4: Mô hình kết nối ALU](../Images/Hinh3.4.png)
+Hình minh họa mô tả cách kết nối và hoạt động của Đơn vị số học và logic (ALU) trong CPU. Dưới đây là các thành phần và vai trò chính:
+
+1. **Đơn vị số học và logic (ALU)**:
+
+- Là trung tâm thực hiện các phép toán số học (cộng, trừ, nhân, chia) và logic (AND, OR, XOR, NOT).
+- Nhận tín hiệu điều khiển từ đơn vị điều khiển (CU) và dữ liệu đầu vào từ các thanh ghi để thực hiện các phép tính.
+
+2. **Dữ liệu vào từ các thanh ghi**:
+
+- Dữ liệu được đưa vào ALU từ các thanh ghi của CPU.
+- Các thanh ghi lưu trữ tạm thời dữ liệu cần xử lý, đảm bảo ALU có thể truy cập nhanh chóng.
+
+3. **Dữ liệu ra đến các thanh ghi**:
+
+- Sau khi ALU thực hiện xong phép tính hoặc xử lý logic, kết quả được gửi trở lại các thanh ghi.
+- Kết quả này có thể tiếp tục được sử dụng trong các phép tính tiếp theo hoặc chuyển ra ngoài.
+
+4. **Các tín hiệu từ đơn vị điều khiển (CU)**:
+
+- CU gửi tín hiệu điều khiển tới ALU, quyết định loại phép tính hoặc thao tác logic mà ALU cần thực hiện.
+- Ví dụ: Tín hiệu điều khiển có thể yêu cầu ALU thực hiện phép cộng hai số hoặc so sánh giá trị.
+
+5. **Thanh ghi cờ (Flag Register)**:
+
+- Lưu trữ các cờ trạng thái do ALU tạo ra trong quá trình xử lý, như:
+  - `Carry Flag (CF)`: Báo hiệu khi có số dư từ phép toán.
+  - `Zero Flag (ZF)`: Xác định kết quả của phép tính là 0.
+  - `Sign Flag (SF)`: Báo hiệu kết quả là số âm.
+
+### 4.3. CU - Control Unit
+
+#### 4.3.1. Chức năng
+
+- Điều khiển nhận lệnh từ bộ nhớ đưa vào thanh ghi lệnh.
+- Tăng nội dung của PC để trỏ sang lệnh kế tiếp.
+- Giải mã lệnh đã được nhận để xác định thao tác mà lệnh yêu cầu.
+- Phát ra các tín hiệu điều khiển thực hiện lệnh.
+- Nhận các tín hiệu yêu cầu từ bus hệ thống và đáp ứng các yêu cầu đó.
+
+#### 4.3.2. Mô hình kết nối CU
