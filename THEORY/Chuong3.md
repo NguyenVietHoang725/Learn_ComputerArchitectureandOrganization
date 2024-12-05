@@ -184,3 +184,151 @@ Hình minh họa mô tả cách kết nối và hoạt động của Đơn vị 
 - Nhận các tín hiệu yêu cầu từ bus hệ thống và đáp ứng các yêu cầu đó.
 
 #### 4.3.2. Mô hình kết nối CU
+
+#### 4.3.3. Tập thanh ghi
+
+#### 4.3.4. Bus
+
+- Bus: tập các dây kết nối các thành phần của máy tính.
+- Các loại bus:
+  - Bus địa chỉ: Xác định vùng nhớ hay thiết bị ngoại vi mà CPU cần truy xuất, luôn nhận dữ liệu từ CPU.
+  - Bus dữ liệu: Tải dữ liệu từ CPU đến bộ nhớ và ngược lại.
+  - Bus điều khiển: Truyền tải các lệnh điều khiển.
+
+1. **Bus địa chỉ**
+
+- Chức năng: Vận chuyển địa chỉ để xác định ngăn nhớ hay cổng vào-ra.
+- Độ rộng bus địa chỉ: Xác định dung lượng bộ nhớ cực đại của hệ thống.
+  Nếu độ rộng bus địa chỉ là N bit: $A_{N-1}$, $A_{N-2}$, ..., $A_2$, $A_1$, $A_0$
+  $\Rightarrow$ Có thể đánh địa chỉ tối đa cho $2^N$ ngăn nhớ.
+- Ví dụ: Bộ xử lý Pentium có bus địa chỉ 32 bit thì không gian địa chỉ là $2^{32}$ byte = 4 GBytes (đánh địa chỉ theo byte)
+
+2. **Bus dữ liệu**
+
+- Chức năng:
+  - Vận chuyển lệnh từ bộ nhớ đến CPU.
+  - Vận chuyển dữ liệu giữa CPU, các mô đun nhớ và mô đun vào-ra với nhau.
+- Độ rộng bus dữ liệu: Xác định số bit dữ liệu có thể được trao đổi đồng thời.
+  - M bit: $D_{M-1}$, $D_{M-2}$, ..., $D_2$, $D_1$, $D_0$
+  - M thường là 8, 16, 32, 64, 128 bit.
+- Ví dụ: Các bộ xử lý Pentium có bus dữ liệu 64 bit.
+
+3. **Bus điều khiển**
+
+- Chức năng: Vận chuyển các tín hiệu điều khiển.
+- Các loại tín hiệu điều khiển:
+  - Các tín hiệu phát ra từ CPU để điều khiển mô-đun nhớ và mô-đun vào-ra.
+  - Các tín hiệu từ mô-đun nhớ hay mô-đun vào-ra gửi đến yêu cầu CPU.
+
+---
+
+## 5. Chu trình lệnh
+
+### 5.1. Chu trình lệnh trong 10 bước
+
+1. **Hệ điều hành nạp chương trình vào bộ nhớ trong**:
+
+> Khi chạy chương trình, hệ điều hành sẽ đưa chương trình từ bộ nhớ ngoài (như ổ đĩa) vào bộ nhớ trong (RAM) để CPU có thể xử lý.
+
+2. **Địa chỉ của câu lệnh đầu tiên được đặt vào thanh ghi PC (Program Counter)**:
+
+> PC giữ địa chỉ của câu lệnh đầu tiên của chương trình. Đây là bước khởi tạo để CPU biết bắt đầu từ đâu.
+
+3. **Địa chỉ ô nhớ chứa câu lệnh được chuyển vào bus địa chỉ qua thanh ghi MAR (Memory Address Register)**:
+
+> Địa chỉ trong PC được chuyển vào MAR, từ đó được gửi tới bus địa chỉ để CPU có thể truy cập bộ nhớ.
+
+4. **Bus địa chỉ chuyển địa chỉ lệnh tới đơn vị quản lý bộ nhớ MMU (Memory Management Unit)**:
+
+> MMU chuyển địa chỉ logic từ CPU thành địa chỉ vật lý trong bộ nhớ.
+> MMU xác định ô nhớ chứa lệnh tương ứng.
+
+5. **MMU chọn ô nhớ chứa lệnh và yêu cầu tín hiệu đọc từ CPU**:
+
+> CPU gửi tín hiệu yêu cầu đọc lệnh từ ô nhớ mà MMU đã chỉ định.
+
+6. **Lệnh được chuyển từ ô nhớ vào thanh ghi MBR (Memory Buffer Register)**:
+
+> Lệnh được nạp từ RAM vào thanh ghi MBR thông qua bus dữ liệu để chuẩn bị gửi đến thanh ghi lệnh (IR).
+
+7. **MBR chuyển lệnh tới thanh ghi lệnh IR (Instruction Register) và sau đó tới CU (Control Unit)**:
+
+> Lệnh được lưu trong IR, sau đó CU sẽ xử lý và giải mã nội dung của lệnh.
+
+8. **CU giải mã câu lệnh và tạo tín hiệu điều khiển**:
+
+> CU giải mã lệnh để xác định thao tác cần thực hiện, đồng thời gửi tín hiệu tới các đơn vị thực thi như ALU hoặc bộ nhớ.
+
+9. **Giá trị thanh ghi PC tăng lên 1**:
+
+> Sau khi giải mã lệnh, PC được tăng giá trị để trỏ đến câu lệnh tiếp theo trong chương trình.
+
+10. **Lặp lại quá trình**:
+
+> Các bước 2 - 9 được lặp lại cho đến khi tất cả các lệnh trong chương trình được xử lý hoặc chương trình kết thúc.
+
+### 5.2. Hoạt động của chu trình lệnh (tóm lược)
+
+Chu trình lệnh có thể được chia thành các bước chính như sau:
+
+- **Nhận lệnh** (Fetch): CPU truy xuất lệnh từ bộ nhớ chính vào thanh ghi lệnh IR.
+- **Giải mã lệnh** (Decode): CU phân tích và giải mã lệnh, xác định cần thực hiện tác vụ nào.
+- **Nhận toán hạng** (Fetch Operand): Nếu lệnh yêu cầu toán hạng (dữ liệu), CPU truy xuất toán hạng từ bộ nhớ hoặc thanh ghi.
+- **Thực hiện lệnh** (Execute): CPU thực hiện lệnh, có thể là phép toán, đọc/ghi dữ liệu hoặc thay đổi trạng thái thanh ghi.
+- **Cất toán hạng** (Write Back): Kết quả của lệnh được lưu trở lại bộ nhớ hoặc thanh ghi.
+- **Ngắt** (Interrupt – nếu có): CPU kiểm tra và xử lý tín hiệu ngắt trước khi quay lại thực hiện lệnh tiếp theo.
+  Quá trình này lặp lại cho đến khi chương trình kết thúc.
+
+![Giản đồ trạng thái chu trình lệnh](../Images/GianDoTrangThaiChuTrinhLenh.png)
+
+1. **Nhận lệnh**
+   ![Sơ đồ mô tả quá trình nhận lệnh](../Images/SoDoQuaTrinhNhanLenh.png)
+
+- CPU đưa địa chỉ của lệnh cần nhận từ bộ đếm chương trình PC ra bus địa chỉ.
+- CPU phát tín hiệu điều khiển đọc bộ nhớ.
+- Lệnh từ bộ nhớ được đặt lên bus dữ liệu và được CPU copy vào thanh ghi lệnh IR.
+- CPU tăng nội dung PC để trỏ sang lệnh kế tiếp.
+
+2. **Giải mã lệnh**
+
+- Lệnh từ thanh ghi lệnh IR được đưa đến đơn vị điều khiển.
+- Đơn vị điều khiển tiến hành giải mã lệnh để xác định thao tác phải thực hiện.
+- Giải mã lệnh xảy ra bên trong CPU.
+
+3. **Nhận dữ liệu từ bộ nhớ**
+
+![Sơ đồ mô tả quá trình nhận dữ liệu từ bộ nhớ](../Images/SoDoNhanDuLieuTuBoNho.png)
+
+- CPU đưa địa chỉ của toán hạng ra bus địa chỉ.
+- CPU phát tín hiệu điều khiển đọc.
+- Toán hạng được đọc vào CPU.
+- Tương tự như nhận lệnh
+
+4. **Thực hiện lệnh**
+
+- Có nhiều dạng tuỳ thuộc vào lệnh.
+- Có thể là:
+  - Đọc/Ghi bộ nhớ.
+  - Vào/Ra.
+  - Chuyển giữa các thanh ghi.
+  - Thao tác số học/logic.
+  - Chuyển điều khiển (rẽ nhánh).
+
+5. **Ghi toán hạng**
+
+![Sơ đồ mô tả quá trình ghi toán hạng](../Images/SoDoQuaTrinhGhiToanHang.png)
+
+- CPU đưa địa chỉ ra bus địa chỉ.
+- CPU đưa dữ liệu cần ghi ra bus dữ liệu.
+- CPU phát tín hiệu điều khiển ghi.
+- Dữ liệu trên bus dữ liệu được copy đến vị trí xác định.
+
+6. **Ngắt**
+
+![Sơ đồ mô tả chu trình ngắt](../Images/SoDoMoTaChuTrinhNgat.png)
+
+- Nội dung của bộ đếm chương trình PC (địa chỉ trở về sau khi ngắt) được đưa ra bus dữ liệu.
+- CPU đưa địa chỉ (thường được lấy từ con trỏ ngăn xếp SP) ra bus địa chỉ.
+- CPU phát tín hiệu điều khiển ghi bộ nhớ.
+- Địa chỉ trở về trên bus dữ liệu được ghi ra vị trí xác định (ở ngăn xếp).
+- Địa chỉ lệnh đầu tiên của chương trình con điều khiển ngắt được nạp vào PC.
