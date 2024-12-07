@@ -268,3 +268,131 @@ Tổ chức bộ nhớ liên quan đến cách dữ liệu được sắp xếp 
   - **Rambus DRAM (RDRAM)**: DRAM có kênh truyền tải tốc độ cao, thiết kế dành cho băng thông lớn và hiệu năng cao.
 
 ### 2.4. Tổ chức của chip nhớ
+
+#### 2.4.1. Sơ đồ cơ bản của chip nhớ
+
+![Sơ đồ cơ bản của chip nhớ](../Images/SoDoCoBanCuaChipNho.png)
+
+#### 2.4.2. Các tín hiệu của chip nhớ
+
+- Các đường địa chỉ ($A_{n-1}$ đến $A_0$):
+
+  - **Chức năng:** Các đường địa chỉ được sử dụng để chọn một ô nhớ cụ thể trong chip nhớ.
+  - **Số lượng từ nhớ:** Vì chip nhớ có $n$ đường địa chỉ, nó có thể truy cập $2^n$ từ nhớ (mỗi từ là một tập hợp các bit dữ liệu).
+
+- Các đường dữ liệu ($D_{m-1}$ đến $D_0$):
+
+  - **Chức năng:** Các đường dữ liệu được sử dụng để truyền dữ liệu ra khỏi hoặc vào chip nhớ.
+  - **Độ dài từ nhớ:** Mỗi từ nhớ có chiều dài $m$ bit, nghĩa là chip nhớ có thể xử lý dữ liệu có $m$ bit mỗi lần.
+
+- Dung lượng chip nhớ:
+
+  - Công thức dung lượng của chip nhớ là:
+    \[
+    \text{Dung lượng} = 2^n \times m \, \text{bit}.
+    \]
+  - Trong đó:
+    - $2^n$: Số từ nhớ.
+    - $m$: Số bit trên mỗi từ nhớ.
+
+- Các đường điều khiển:
+
+  - **Tín hiệu chọn chip (CS - Chip Select):**
+
+    - **Chức năng:** Kích hoạt hoặc vô hiệu hóa chip nhớ.
+    - **Hoạt động:** Khi $\overline{\text{CS}} = 0$, chip nhớ được chọn và có thể hoạt động; nếu \( \overline{\text{CS}} = 1 \), chip nhớ bị vô hiệu hóa.
+
+  - **Tín hiệu điều khiển đọc (OE - Output Enable):**
+
+    - **Chức năng:** Kích hoạt việc đọc dữ liệu từ chip nhớ.
+    - **Hoạt động:** Khi $\overline{\text{OE}} = 0$, dữ liệu từ chip nhớ sẽ được truyền ra ngoài qua các đường dữ liệu.
+
+  - **Tín hiệu điều khiển ghi (WE - Write Enable):**
+    - **Chức năng:** Kích hoạt việc ghi dữ liệu vào chip nhớ.
+    - **Hoạt động:** Khi $\overline{\text{WE}} = 0$, dữ liệu từ các đường dữ liệu sẽ được ghi vào vị trí nhớ được chọn.
+
+- Tích cực ở mức 0:
+
+  - Các tín hiệu điều khiển (CS, OE, WE) là **tích cực ở mức thấp**, nghĩa là chúng chỉ hoạt động khi có mức logic 0.
+
+- Người dùng cần phối hợp các tín hiệu điều khiển \( \overline{\text{CS}}, \overline{\text{OE}}, \overline{\text{WE}} \) để thực hiện các thao tác đọc và ghi dữ liệu.
+
+#### 2.4.3. Tổ chức bộ nhớ một chiều
+
+![Tổ chức bộ nhớ một chiều](../Images/ToChucBoNhoMotChieu.png)
+
+#### 2.4.4. Tổ chức bộ nhớ hai chiều
+
+![Tổ chức bộ nhớ hai chiều](../Images/ToChucBoNhoHaiChieu.png)
+
+Bộ nhớ hai chiều là cách tổ chức dữ liệu trong chip nhớ để tối ưu hóa việc truy cập và quản lý địa chỉ.
+
+- Các thành phần chính
+
+  - **Ma trận nhớ:**
+
+    - Bao gồm $2^{n1}$ hàng và $2^{n2}$ cột.
+    - Mỗi từ nhớ có độ dài $m$ bit.
+
+  - **Bộ giải mã địa chỉ hàng (Row Decoder):**
+
+    - Nhận tín hiệu từ $n1$ bit địa chỉ.
+    - Chọn một trong $2^{n1}$ hàng trong ma trận nhớ.
+
+  - **Bộ giải mã địa chỉ cột (Column Decoder):**
+
+    - Nhận tín hiệu từ $n2$ bit địa chỉ.
+    - Chọn một trong $2^{n2}$ từ nhớ (cột) trong hàng đã chọn.
+
+  - **Bộ đệm dữ liệu:**
+
+    - Đọc dữ liệu từ ma trận nhớ ra ngoài hoặc ghi dữ liệu vào ma trận nhớ.
+    - Độ rộng $m$ bit.
+
+  - **Bộ điều khiển và định thời:**
+    - Điều khiển các tín hiệu như CE (Chip Enable), WE (Write Enable), và OE (Output Enable).
+    - Đồng bộ hóa hoạt động đọc/ghi dữ liệu.
+
+---
+
+- Số lượng địa chỉ
+  - **Tổng số đường địa chỉ:**
+    \[
+    n = n1 + n2
+    \]
+  - **Phân bổ đường địa chỉ:**
+    - n1: Chọn $2^{n1}$ hàng.
+    - n2: Chọn $2^{n2}$ cột trong mỗi hàng.
+
+---
+
+- Dung lượng bộ nhớ
+  - Dung lượng tổng của chip nhớ được tính bằng công thức:
+    \[
+    \text{Dung lượng} = 2^{n1} \times 2^{n2} \times m = 2^{n} \times m \, \text{bit}.
+    \]
+  - Trong đó:
+    - $2^{n1}$: Số hàng.
+    - $2^{n2}$: Số từ nhớ trong mỗi hàng.
+    - $m$: Độ dài mỗi từ nhớ (số bit).
+
+---
+
+- Hoạt động giải mã địa chỉ
+  - **Bước 1:** Bộ giải mã hàng nhận $n1$ bit đầu tiên của địa chỉ và chọn một hàng trong \( 2^{n1} \) hàng.
+  - **Bước 2:** Bộ giải mã cột nhận $n2$ bit còn lại của địa chỉ và chọn một từ nhớ trong hàng đã chọn.
+  - **Kết quả:** Truy cập chính xác vào một từ nhớ trong ma trận.
+
+---
+
+- Các tín hiệu điều khiển
+  - **CE (Chip Enable):** Kích hoạt chip nhớ để bắt đầu hoạt động.
+  - **WE (Write Enable):** Cho phép ghi dữ liệu vào từ nhớ được chọn.
+  - **OE (Output Enable):** Cho phép xuất dữ liệu từ từ nhớ ra ngoài.
+
+---
+
+- Ưu điểm tổ chức hai chiều
+  - **Tối ưu hóa địa chỉ:** Chia nhỏ địa chỉ thành hàng và cột giúp giảm số lượng đường dây cần thiết.
+  - **Hiệu suất cao:** Việc tổ chức ma trận cho phép truy cập nhanh đến từng từ nhớ.
+  - **Quy mô lớn:** Tăng dung lượng bộ nhớ mà không cần tăng số lượng đường địa chỉ nhiều.
