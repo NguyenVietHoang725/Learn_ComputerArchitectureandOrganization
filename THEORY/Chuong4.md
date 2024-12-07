@@ -315,7 +315,7 @@ Tổ chức bộ nhớ liên quan đến cách dữ liệu được sắp xếp 
 
   - Các tín hiệu điều khiển (CS, OE, WE) là **tích cực ở mức thấp**, nghĩa là chúng chỉ hoạt động khi có mức logic 0.
 
-- Người dùng cần phối hợp các tín hiệu điều khiển \( \overline{\text{CS}}, \overline{\text{OE}}, \overline{\text{WE}} \) để thực hiện các thao tác đọc và ghi dữ liệu.
+- Người dùng cần phối hợp các tín hiệu điều khiển $\overline{\text{CS}}, \overline{\text{OE}}, \overline{\text{WE}}$ để thực hiện các thao tác đọc và ghi dữ liệu.
 
 #### 2.4.3. Tổ chức bộ nhớ một chiều
 
@@ -357,9 +357,9 @@ Bộ nhớ hai chiều là cách tổ chức dữ liệu trong chip nhớ để 
 
 - Số lượng địa chỉ
   - **Tổng số đường địa chỉ:**
-    \[
+    $$
     n = n1 + n2
-    \]
+    $$
   - **Phân bổ đường địa chỉ:**
     - n1: Chọn $2^{n1}$ hàng.
     - n2: Chọn $2^{n2}$ cột trong mỗi hàng.
@@ -368,9 +368,9 @@ Bộ nhớ hai chiều là cách tổ chức dữ liệu trong chip nhớ để 
 
 - Dung lượng bộ nhớ
   - Dung lượng tổng của chip nhớ được tính bằng công thức:
-    \[
+    $$
     \text{Dung lượng} = 2^{n1} \times 2^{n2} \times m = 2^{n} \times m \, \text{bit}.
-    \]
+    $$
   - Trong đó:
     - $2^{n1}$: Số hàng.
     - $2^{n2}$: Số từ nhớ trong mỗi hàng.
