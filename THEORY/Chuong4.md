@@ -353,9 +353,8 @@ Bộ nhớ hai chiều là cách tổ chức dữ liệu trong chip nhớ để 
     - Điều khiển các tín hiệu như CE (Chip Enable), WE (Write Enable), và OE (Output Enable).
     - Đồng bộ hóa hoạt động đọc/ghi dữ liệu.
 
----
-
 - Số lượng địa chỉ
+
   - **Tổng số đường địa chỉ:**
     $$
     n = n1 + n2
@@ -364,9 +363,8 @@ Bộ nhớ hai chiều là cách tổ chức dữ liệu trong chip nhớ để 
     - n1: Chọn $2^{n1}$ hàng.
     - n2: Chọn $2^{n2}$ cột trong mỗi hàng.
 
----
-
 - Dung lượng bộ nhớ
+
   - Dung lượng tổng của chip nhớ được tính bằng công thức:
     $$
     \text{Dung lượng} = 2^{n1} \times 2^{n2} \times m = 2^{n} \times m \, \text{bit}.
@@ -376,21 +374,17 @@ Bộ nhớ hai chiều là cách tổ chức dữ liệu trong chip nhớ để 
     - $2^{n2}$: Số từ nhớ trong mỗi hàng.
     - $m$: Độ dài mỗi từ nhớ (số bit).
 
----
-
 - Hoạt động giải mã địa chỉ
+
   - **Bước 1:** Bộ giải mã hàng nhận $n1$ bit đầu tiên của địa chỉ và chọn một hàng trong \( 2^{n1} \) hàng.
   - **Bước 2:** Bộ giải mã cột nhận $n2$ bit còn lại của địa chỉ và chọn một từ nhớ trong hàng đã chọn.
   - **Kết quả:** Truy cập chính xác vào một từ nhớ trong ma trận.
 
----
-
 - Các tín hiệu điều khiển
+
   - **CE (Chip Enable):** Kích hoạt chip nhớ để bắt đầu hoạt động.
   - **WE (Write Enable):** Cho phép ghi dữ liệu vào từ nhớ được chọn.
   - **OE (Output Enable):** Cho phép xuất dữ liệu từ từ nhớ ra ngoài.
-
----
 
 - Ưu điểm tổ chức hai chiều
   - **Tối ưu hóa địa chỉ:** Chia nhỏ địa chỉ thành hàng và cột giúp giảm số lượng đường dây cần thiết.
